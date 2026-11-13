@@ -135,7 +135,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
           <Kpi label="導入種数" value={`${species} 種`} />
           <Kpi label="水槽数" value={`${game.tanks.length} 基`} />
           <Kpi label="入館料" value={yen(game.admissionPrice)} />
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button className={btn} onClick={() => act((g) => setAdmissionPrice(g, g.admissionPrice - 500))}>
               −500
             </button>
@@ -175,7 +175,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
             style={{
               aspectRatio: `${GRID.cols} / ${GRID.rows}`,
               maxWidth: 720,
-              transform: "rotateX(48deg) rotateZ(-4deg)",
+              transform: "rotateX(40deg) rotateZ(-4deg)",
               transformStyle: "preserve-3d",
             }}
           >
@@ -231,7 +231,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
                   }}
                 >
                   <span className="text-sm font-semibold">{t.name}</span>
-                  <span className="text-xs text-white/80">
+                  <span className="hidden text-xs text-white/80 sm:block">
                     {type.volumeL}L ・ 生物 {count}匹 ・ フィルターLv{t.filterLevel}
                   </span>
                 </button>
