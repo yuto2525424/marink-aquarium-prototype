@@ -48,11 +48,12 @@ function gameClock(minute: number) {
   return `${day}日目 ${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
 }
 
-const glass = "rounded-3xl border border-white/15 bg-white/10 p-5 shadow-lg backdrop-blur-md";
+const glass =
+  "rounded-3xl border-2 border-white/60 bg-gradient-to-b from-[#2b7fb8]/70 to-[#14507f]/80 p-5 shadow-[0_10px_0_#0a2f4d,0_22px_30px_rgba(0,0,0,0.35)]";
 const btn =
-  "rounded-full bg-white/15 px-4 py-2 text-sm font-medium transition hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40";
+  "rounded-2xl border-2 border-white/70 bg-gradient-to-b from-[#7ef0c4] to-[#38c2a0] px-5 py-3 text-base font-bold text-[#06302a] shadow-[0_5px_0_#1f8a70] transition active:translate-y-[5px] active:shadow-none hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40";
 const btnPrimary =
-  "rounded-full bg-[#7fd6e8] px-4 py-2 text-sm font-semibold text-[#0b2545] transition hover:bg-[#a6e6f2] disabled:cursor-not-allowed disabled:opacity-40";
+  "rounded-2xl border-2 border-white bg-gradient-to-b from-[#ffd76a] to-[#ff9f5a] px-5 py-3 text-base font-bold text-[#2a1a05] shadow-[0_5px_0_#c46a1f] transition active:translate-y-[5px] active:shadow-none hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40";
 
 function Stars({ n, max = 5 }: { n: number; max?: number }) {
   return <span className="text-[#ffd76a]">{"★".repeat(n)}<span className="text-white/25">{"★".repeat(max - n)}</span></span>;
@@ -146,11 +147,11 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
 
         <div className={glass}>
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <h2 className="mr-auto text-lg font-semibold">館内マップ</h2>
+            <h2 className="mr-auto text-xl font-bold">水族館のマップ</h2>
             {mode.kind === "idle" ? (
               TANK_TYPES.map((t) => (
                 <button key={t.id} className={btn} onClick={() => setMode({ kind: "build", typeId: t.id })}>
-                  {t.nameJa}を設置（{yen(t.buildCost)}）
+                  {t.nameJa}を置く（{yen(t.buildCost)}）
                 </button>
               ))
             ) : (
@@ -166,7 +167,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
           </div>
 
           <div
-            className="overflow-visible rounded-2xl border border-white/10 bg-gradient-to-b from-[#0b2545]/60 to-[#06182e]/80 px-4 py-10 md:px-10"
+            className="overflow-visible rounded-3xl border-2 border-[#ffd76a]/40 bg-gradient-to-b from-[#1d6fa5] via-[#14507f] to-[#0c3560] px-4 py-10 md:px-10"
             style={{ perspective: "1200px" }}
           >
           <div
@@ -180,8 +181,8 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
           >
             {/* 床（厚みのある板） */}
             <div
-              className="absolute inset-0 rounded-xl border border-white/15 bg-[#0e3358]"
-              style={{ transform: "translateZ(-6px)", boxShadow: "0 12px 0 #061d33, 0 40px 60px rgba(0,0,0,0.55)" }}
+              className="absolute inset-0 rounded-3xl border-4 border-white/80 bg-[#7fd6e8]"
+              style={{ transform: "translateZ(-6px)", boxShadow: "0 16px 0 #2a8fb5, 0 40px 60px rgba(0,0,0,0.35)" }}
             />
             {Array.from({ length: GRID.rows }).map((_, y) =>
               Array.from({ length: GRID.cols }).map((__, x) => {
@@ -217,16 +218,16 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
                   }}
                   disabled={mode.kind !== "idle"}
                   className={`absolute flex flex-col items-center justify-center rounded-2xl border p-2 text-center shadow-lg transition ${
-                    isSel ? "border-[#ffd76a] bg-[#2d8fb4]/80" : "border-white/30 bg-gradient-to-br from-[#3aa6c8]/80 to-[#1b6a8a]/80 hover:brightness-110"
+                    isSel ? "border-white bg-gradient-to-br from-[#ffd76a] to-[#ff9f5a] text-[#2a1a05]" : "border-white/80 bg-gradient-to-br from-[#7ef0c4] to-[#38c2a0] text-[#06302a] hover:brightness-110"
                   } ${mode.kind !== "idle" ? "pointer-events-none opacity-60" : ""}`}
                   style={{
                     left: `${t.gridX * cellW + 0.4}%`,
                     top: `${t.gridY * cellH + 0.4}%`,
                     width: `${type.widthCells * cellW - 0.8}%`,
                     height: `${type.heightCells * cellH - 0.8}%`,
-                    transform: `translateZ(${isSel ? 26 : 16}px)`,
+                    transform: `translateZ(${isSel ? 30 : 18}px)`,
                     transformStyle: "preserve-3d",
-                    boxShadow: `0 8px 0 ${isSel ? "#8a6a1e" : "#0b4a66"}, 0 18px 26px rgba(0,0,0,0.45)`,
+                    boxShadow: `0 10px 0 ${isSel ? "#e0a526" : "#ff8fab"}, 0 22px 30px rgba(0,0,0,0.3)`,
                   }}
                 >
                   <span className="text-sm font-semibold">{t.name}</span>
@@ -239,7 +240,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
           </div>
           </div>
           <p className="mt-2 text-xs text-white/50">
-            水槽をタップで選択し、右側から操作します。移動・撤去は選択した水槽に対して行えます（生物がいる水槽は撤去できません）。
+            水槽をタップすると、下で操作できます。
           </p>
         </div>
       </section>
