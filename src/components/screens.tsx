@@ -165,7 +165,24 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
             )}
           </div>
 
-          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0b2545]/50" style={{ aspectRatio: `${GRID.cols} / ${GRID.rows}` }}>
+          <div
+            className="overflow-visible rounded-2xl border border-white/10 bg-gradient-to-b from-[#0b2545]/60 to-[#06182e]/80 px-4 py-10 md:px-10"
+            style={{ perspective: "1200px" }}
+          >
+          <div
+            className="relative mx-auto w-full"
+            style={{
+              aspectRatio: `${GRID.cols} / ${GRID.rows}`,
+              maxWidth: 720,
+              transform: "rotateX(48deg) rotateZ(-4deg)",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* 床（厚みのある板） */}
+            <div
+              className="absolute inset-0 rounded-xl border border-white/15 bg-[#0e3358]"
+              style={{ transform: "translateZ(-6px)", boxShadow: "0 12px 0 #061d33, 0 40px 60px rgba(0,0,0,0.55)" }}
+            />
             {Array.from({ length: GRID.rows }).map((_, y) =>
               Array.from({ length: GRID.cols }).map((__, x) => {
                 const movingTank = mode.kind === "move" ? game.tanks.find((t) => t.id === mode.tankId) : undefined;
@@ -207,6 +224,9 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
                     top: `${t.gridY * cellH + 0.4}%`,
                     width: `${type.widthCells * cellW - 0.8}%`,
                     height: `${type.heightCells * cellH - 0.8}%`,
+                    transform: `translateZ(${isSel ? 26 : 16}px)`,
+                    transformStyle: "preserve-3d",
+                    boxShadow: `0 8px 0 ${isSel ? "#8a6a1e" : "#0b4a66"}, 0 18px 26px rgba(0,0,0,0.45)`,
                   }}
                 >
                   <span className="text-sm font-semibold">{t.name}</span>
@@ -216,6 +236,7 @@ export function AquariumHome({ game, act, go, selectedTankId, setSelectedTankId 
                 </button>
               );
             })}
+          </div>
           </div>
           <p className="mt-2 text-xs text-white/50">
             水槽をタップで選択し、右側から操作します。移動・撤去は選択した水槽に対して行えます（生物がいる水槽は撤去できません）。
